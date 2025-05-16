@@ -2,7 +2,8 @@
 
 ---
 
-This is a plugin to extend ImageIO with JDeli. You will require JDeli to use this plugin, if you don't already have JDeli, you can download the trial [here](https://www.idrsolutions.com/jdeli/).
+
+This plugin extends ImageIO with support for new Image File Formats (AVIF, HEIC, JPEG-XL, WEBP), processing functions and better support for common formats (BMP, JPEG, JPEG 2000, PNG, TIFF) in native Java. Requires a JDeli licence. Find out more details [here](https://www.idrsolutions.com/jdeli/).
 
 
 # Installation
