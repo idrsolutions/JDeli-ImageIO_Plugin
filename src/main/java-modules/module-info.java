@@ -49,6 +49,7 @@ module com.idrsolutions.jdeli_imageio_plugin {
     exports org.jpedal.utils;
 
     provides javax.imageio.spi.ImageReaderSpi with
+            com.idrsolutions.AVIFImageReaderSpi,
             com.idrsolutions.BMPImageReaderSpi,
             com.idrsolutions.DICOMImageReaderSpi,
             com.idrsolutions.EMFImageReaderSpi,
