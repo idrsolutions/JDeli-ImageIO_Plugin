@@ -4,6 +4,8 @@ module com.idrsolutions.jdeli_imageio_plugin {
     exports com.idrsolutions;
 
     exports com.idrsolutions.image;
+    exports com.idrsolutions.image.avif;
+    exports com.idrsolutions.image.avif.options;
     exports com.idrsolutions.image.bmp;
     exports com.idrsolutions.image.bmp.options;
     exports com.idrsolutions.image.dicom;
