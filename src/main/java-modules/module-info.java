@@ -4,6 +4,8 @@ module com.idrsolutions.jdeli_imageio_plugin {
     exports com.idrsolutions;
 
     exports com.idrsolutions.image;
+    exports com.idrsolutions.image.avif;
+    exports com.idrsolutions.image.avif.options;
     exports com.idrsolutions.image.bmp;
     exports com.idrsolutions.image.bmp.options;
     exports com.idrsolutions.image.dicom;
@@ -49,6 +51,7 @@ module com.idrsolutions.jdeli_imageio_plugin {
     exports org.jpedal.utils;
 
     provides javax.imageio.spi.ImageReaderSpi with
+            com.idrsolutions.AVIFImageReaderSpi,
             com.idrsolutions.BMPImageReaderSpi,
             com.idrsolutions.DICOMImageReaderSpi,
             com.idrsolutions.EMFImageReaderSpi,
