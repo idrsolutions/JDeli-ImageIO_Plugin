@@ -5,7 +5,7 @@
 
     <groupId>com.idrsolutions</groupId>
     <artifactId>jdeli-imageio${profile.identifier}</artifactId>
-    <version>4.0</version>
+    <version>3.1</version>
     <packaging>jar</packaging>
 
     <dependencies>
