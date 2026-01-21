@@ -33,7 +33,9 @@ public class JPEGImageReaderSpi extends JDeliImageReaderSpi {
         if(isRegistered()) {
             final ImageInputStream input = (ImageInputStream) source;
             final byte[] b = new byte[140];
+            input.mark();
             input.read(b);
+            input.reset();
 
             return ImageTypeFinder.getImageType(b).equals(ImageFormat.JPEG_IMAGE);
         } else {
