@@ -79,6 +79,10 @@ public abstract class JDeliImageReaderSpi extends ImageReaderSpi {
         return "JDeli Image Reader";
     }
 
+    protected void removeDelegate() {
+        delegate = null;
+    }
+
     @Override
     public ImageReader createReaderInstance(final Object extension) throws IOException {
         final String format = (String)extension;
@@ -114,5 +118,14 @@ public abstract class JDeliImageReaderSpi extends ImageReaderSpi {
 
     protected boolean isRegistered() {
         return ImageIOSupport.isregisteredReader(ImageIOSupport.InputFormat.valueOf(names[0].toUpperCase(Locale.ENGLISH)));
+    }
+
+    @Override
+    public void onDeregistration(ServiceRegistry registry,
+                                 Class<?> category) {
+        if (delegate != null) {
+            delegate = null;
+
+        }
     }
 }
