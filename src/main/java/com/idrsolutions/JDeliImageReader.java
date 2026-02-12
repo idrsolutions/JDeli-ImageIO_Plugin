@@ -15,6 +15,7 @@ import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.ImageTypeSpecifier;
 import javax.imageio.metadata.IIOMetadata;
+import javax.imageio.spi.IIORegistry;
 import javax.imageio.spi.ImageReaderSpi;
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
@@ -39,7 +40,7 @@ public class JDeliImageReader extends ImageReader {
     final JDeliMetadata metadata;
     private byte[] bytes;
     private BufferedImage tn;
-    private final ImageReader delegate;
+    private ImageReader delegate;
 
     @SuppressWarnings("WeakerAccess")
     public JDeliImageReader(final ImageReaderSpi jdeliSpi, final String format, final ImageReader delegate) {
@@ -101,6 +102,16 @@ public class JDeliImageReader extends ImageReader {
         }
     }
 
+    private boolean checkDelegateRegistered() {
+        if (delegate != null && IIORegistry.getDefaultInstance().contains(delegate.getOriginatingProvider())) {
+            return true;
+        } else {
+            delegate = null;
+            ((JDeliImageReaderSpi) getOriginatingProvider()).removeDelegate();
+            return false;
+        }
+    }
+
     /**
      * Return the width of the image
      *
@@ -111,7 +122,7 @@ public class JDeliImageReader extends ImageReader {
     @Override
     public int getWidth(final int imageIndex) throws IOException {
         int w = 0;
-        if (delegate == null) {
+        if (!checkDelegateRegistered()) {
             getByteArray();
             try {
                 Rectangle rectangle = JDeli.readDimension(bytes);
@@ -137,7 +148,7 @@ public class JDeliImageReader extends ImageReader {
     @Override
     public int getHeight(final int imageIndex) throws IOException {
         int h = 0;
-        if (delegate == null) {
+        if (!checkDelegateRegistered()) {
             getByteArray();
             try {
                 Rectangle rectangle = JDeli.readDimension(bytes);
@@ -180,12 +191,12 @@ public class JDeliImageReader extends ImageReader {
 
     @Override
     public IIOMetadata getStreamMetadata() throws IOException {
-        return delegate.getStreamMetadata();
+        return checkDelegateRegistered() ? delegate.getStreamMetadata() : null;
     }
 
     @Override
     public IIOMetadata getImageMetadata(final int imageIndex) throws IOException {
-        return delegate.getImageMetadata(imageIndex);
+        return checkDelegateRegistered() ? delegate.getImageMetadata(imageIndex): null;
     }
 
     /**
@@ -197,7 +208,7 @@ public class JDeliImageReader extends ImageReader {
      * @return int of thumbnails
      */
     @Override
-    public int getNumThumbnails(final int imageIndex) throws IOException{
+    public int getNumThumbnails(final int imageIndex) throws IOException {
         if (currentImageIndex != imageIndex) {
             currentImageIndex = imageIndex;
         }
@@ -311,7 +322,7 @@ public class JDeliImageReader extends ImageReader {
     @Override
     public BufferedImage readThumbnail(final int imageIndex, final int thumbnailIndex) throws IOException {
         if (!readerSupportsThumbnails()) {
-            tn = delegate.readThumbnail(imageIndex, thumbnailIndex);
+            tn = checkDelegateRegistered() ? delegate.readThumbnail(imageIndex, thumbnailIndex) : null;
         } else {
             if (currentThumbnailIndex != thumbnailIndex || currentImageIndex != imageIndex) {
                 currentThumbnailIndex = thumbnailIndex;
