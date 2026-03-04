@@ -69,6 +69,7 @@ module com.idrsolutions.jdeli_imageio_plugin {
             com.idrsolutions.WMFImageReaderSpi;
 
     provides javax.imageio.spi.ImageWriterSpi with
+            com.idrsolutions.AVIFImageWriterSpi,
             com.idrsolutions.BMPImageWriterSpi,
             com.idrsolutions.HEICImageWriterSpi,
             com.idrsolutions.JDeliImageWriterSpi,

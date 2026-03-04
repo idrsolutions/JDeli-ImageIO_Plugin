@@ -34,7 +34,7 @@ You can then add this plugin into your pom as a dependency.
 
 ---
 
-By default, the plugin now comes with HEIC registered and all other formats JDeli supports are unregistered.
+By default, the plugin now comes with AVIF and HEIC registered and all other formats JDeli supports are unregistered.
 
 To register all formats:
 ```java
