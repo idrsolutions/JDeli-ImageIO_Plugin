@@ -16,7 +16,7 @@ We also have a [pre-made combined JDeli and ImageIO jar](https://www.idrsolution
 
 **Using Maven**
 
-First setup JDeli as guided on our [support page](https://support.idrsolutions.com/jdeli/tutorials/add-jdeli-as-a-maven-dependency)
+First setup JDeli as guided on our [support page](https://www.idrsolutions.com/docs/jdeli/tutorials/add-jdeli-as-a-maven-dependency)
 Once JDeli has been set up You can build JDeli_imageIO_Plugin and the jar will include JDeli.
 You can then add this plugin into your pom as a dependency. 
 
